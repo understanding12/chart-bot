@@ -3,10 +3,7 @@
 #include <vector>
 #include "user.h"
 using namespace std;
-
-class hospital;
-
-class hospital{
+class hospital {
     private:
     class Doc{
     private:
@@ -15,6 +12,10 @@ class hospital{
     static inline unsigned k{};
     string fio;
     public:
+    virtual void Myclass() {
+
+        cout<<"virtual void";
+    }
     vector<user> GetUser(){
         return zapisi;
     }
@@ -25,6 +26,9 @@ class hospital{
     string hospitalName;
     public:
     vector <Doc> doktors;
+    Doc &operator[] (const int index){
+        return doktors[index];
+    };
 
     void Adddoc(string fio){
         Doc buf(fio);
@@ -74,5 +78,24 @@ class special : hospital{
     void SetName(){
         cout<<"Enter the name of the specialist"<<endl;
         cin>>name;
+    }
+};
+class hospitalsystem{
+    private:
+    int count;
+    vector <hospital> hospitals;
+    public:
+    virtual void SentInfo() const = 0;
+};
+class GhostUslugi : hospitalsystem{
+    public:
+    virtual void SentInfo(){
+        cout<<"отправил информацию на сервер госуслуг!";
+    }
+};
+class Plathospital : hospitalsystem{
+    public:
+    virtual void SentInfo(){
+        cout<<"отправил информацию в другие платные клиники!";
     }
 };
